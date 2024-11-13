@@ -15,4 +15,26 @@ td {
 #add-book-form {
   margin-top: 1rem;
   margin-bottom: 2rem;
+  padding: 0.5rem;
+  display: inline-flex;
+  flex-direction: column;
+  border: 1px solid black;
+  width: auto;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 10rem;
+  margin-bottom: 0.4rem;
+}
+
+input[type='submit'] {
+  margin-top: 0.4rem;
+  width: 6rem;
+}
+
+#checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }

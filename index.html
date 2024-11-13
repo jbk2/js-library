@@ -8,16 +8,27 @@
   <title>Document</title>
 </head>
 <body>
-  <div id="add-book-form">
+
+  <form id="add-book-form" action="post">
+    <label for="add-book-title">Title</label>
     <input type="text" placeholder="title" id="add-book-title">
+    <label for="add-book-author">Author</label>
     <input type="text" placeholder="author" id="add-book-author">
-    <button id="add-book-btn">Add book</button>
-  </div>
-  
+    <label for="add-book-pages">No of Pages</label>
+    <input type="number" placeholder="number of pages" id="add-book-pages">
+    <div id="checkbox-group">
+      <label for="add-book-read">Read?</label>
+      <input type="checkbox" id="add-book-read">
+    </div>
+    <input type="submit" value="Add Book">
+  </form>
+
   <table id="books">
     <tr>
-      <th>Book Title</th>
-      <th>Book Author</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>No of Pages</th>
+      <th>Read</th>
     </tr>
   </table>
   
