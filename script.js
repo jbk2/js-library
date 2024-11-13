@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       addBookRead
     ] = document.querySelectorAll('#add-book-title, #add-book-author, #add-book-pages, #add-book-read');
     let newBook = new Book(addBookTitle.value, addBookAuthor.value, addBookPages.value, addBookRead.value);
-    
+
     [addBookTitle.value, addBookAuthor.value, addBookPages.value, addBookRead.value] = ['', '', '', ''];
     console.log(newBook);
     return newBook;
@@ -57,4 +57,19 @@ document.addEventListener('DOMContentLoaded', () => {
     addBookToArray(newBook);
     displayBook(newBook);
   });
+
+// ########################################################
+
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  
+
+
 });

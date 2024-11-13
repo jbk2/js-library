@@ -38,3 +38,63 @@ input[type='submit'] {
     align-items: center;
     gap: 0.5rem;
 }
+
+.book {
+  width: 150px;
+  height: 220px;
+  position: relative; /* Required for positioning pseudo-elements within `.book` */
+  background: #F33139;
+  border-radius: 15px 10px 10px 20px;
+  background-image: linear-gradient(to right, #D11F2F 10px, #ba0716 28px, transparent 28px);
+}
+
+.book:after {
+  content: ""; /* Required for pseudo-element to display */
+  height: 28px;
+  width: 145px;
+  position: absolute;
+  bottom: 3px;
+  left: 5px;
+  background: white;
+  border-radius: 30px 0px 10px 30px;
+  box-shadow: inset 2px 4px 0px 0px #E4E0CE;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 7px,
+    #E4E0CE 8px,
+    transparent 8px,
+    transparent 12px,
+    #E4E0CE 13px,
+    transparent 13px,
+    transparent 17px,
+    #E4E0CE 18px,
+    transparent 18px,
+    transparent 22px,
+    #E4E0CE 23px,
+    transparent 23px,
+    transparent 27px,
+    #E4E0CE 28px,
+    transparent 28px,
+    transparent 32px,
+    #E4E0CE 33px,
+    transparent 33px,
+    transparent 37px,
+    #E4E0CE 38px,
+    transparent 38px,
+    transparent 42px,
+    #E4E0CE 43px,
+    transparent 43px
+  );
+}
+
+.book:before {
+  content: ""; /* Required for pseudo-element to display */
+  height: 20px;
+  width: 100px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #D11F2F;
+  border-radius: 20px;
+  box-shadow: 0px 36px #D11F2F;
+}
