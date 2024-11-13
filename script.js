@@ -1,19 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  let books = [{title: 'To Kill a Mockingbird', author: 'Harper Lee'}, {title: 'Animal Farm', author: 'George Orwell'}];
+  let books = [];
   const addBookBtn = document.getElementById('add-book-btn');
   const booksTable = document.getElementById('books');
 
+  function Book(author, title) {
+    this.author = author;
+    this.title = title;
+  }
+
+  let seedBook1 = new Book('To Kill a Mockingbird', 'Harper Lee');
+  let seedBook2 = new Book('Animal Farm', 'George Orwell');
+
+  books.push(seedBook1, seedBook2);
+
   function addBook() {
-    const [addBookTitle, addBookAuthor] = document.querySelectorAll('#add-book-title, #add-book-author');
+    let [addBookTitle, addBookAuthor] = document.querySelectorAll('#add-book-title, #add-book-author');
+
+    let newBook = new Book(addBookTitle.value, addBookAuthor.value);
+    books.push(newBook)
 
     let row = document.createElement('tr');
-    row.innerHTML = `<td>${addBookTitle.value}</td><td>${addBookAuthor.value}</td>`;
+    row.innerHTML = `<td>${newBook.title}</td><td>${newBook.author}</td>`;
     booksTable.appendChild(row);
     
-    let newBook = {title: addBookTitle.value , author: addBookAuthor.value}
-    books.push(newBook)
     [addBookTitle, addBookAuthor] = ['', ''];
+     console.log(books);
   }
 
   function displayBooks() {
