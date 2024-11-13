@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  let books = [];
+  let booksArray = [];
   const addBookBtn = document.getElementById('add-book-btn');
   const booksTable = document.getElementById('books');
 
@@ -11,26 +11,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let seedBook1 = new Book('To Kill a Mockingbird', 'Harper Lee');
   let seedBook2 = new Book('Animal Farm', 'George Orwell');
+  booksArray.push(seedBook1, seedBook2);
 
-  books.push(seedBook1, seedBook2);
-
-  function addBook() {
+  function createBook() {
     let [addBookTitle, addBookAuthor] = document.querySelectorAll('#add-book-title, #add-book-author');
-
     let newBook = new Book(addBookTitle.value, addBookAuthor.value);
-    books.push(newBook)
-
-    let row = document.createElement('tr');
-    row.innerHTML = `<td>${newBook.title}</td><td>${newBook.author}</td>`;
-    booksTable.appendChild(row);
-    
-    [addBookTitle, addBookAuthor] = ['', ''];
-     console.log(books);
+    [addBookTitle.value, addBookAuthor.value] = ['', ''];
+    console.log(newBook);
+    return newBook;
   }
+  
+  function addBookToArray(book) {
+    booksArray.push(book);
+  };
+
+  function displayBook(book) {
+    let row = document.createElement('tr');
+    row.innerHTML = `<td>${book.title}</td><td>${book.author}</td>`;
+    booksTable.appendChild(row);
+  };
 
   function displayBooks() {
-    // booksTable.innerHTML = "";
-    books.forEach((book) => {
+    booksArray.forEach((book) => {
       let row = document.createElement('tr');
       row.innerHTML = `<td>${book.title}</td><td>${book.author}</td>`;
       booksTable.appendChild(row);
@@ -38,5 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   
   displayBooks();
-  addBookBtn.addEventListener('click', addBook);
+
+  addBookBtn.addEventListener('click', () => {
+    let newBook = createBook();
+    addBookToArray(newBook);
+    displayBook(newBook);
+  });
 });
