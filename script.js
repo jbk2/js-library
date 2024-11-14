@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   function saveBook(book) {
     booksArray.push(book);
+    return booksArray.length - 1;
   };
 
   function getRandomHSLColors() {
@@ -42,21 +43,42 @@ document.addEventListener('DOMContentLoaded', () => {
     return colors
   }
 
-  function displayBook(book) {
+  function removeBook(index) {
+    let deleteBtn = document.querySelector(`.book-delete-btn[data-book-index="${index}"`)
+    deleteBtn.parentElement.remove();
+  };
+
+  function deleteBook(index) {
+    console.log(booksArray);
+    booksArray.splice(index, 1);
+    console.log(booksArray);
+  };
+
+  function displayBook(book, index) {
     let colors = getRandomHSLColors();
     let backgroundImage = `linear-gradient(to right, ${colors.dark} 10px, ${colors.dark} 28px, transparent 29px)`;
     let bookElement = `
       <div class="book" style="background: ${colors.main}; background-image: ${backgroundImage}">
         <p class="title">${book.title}</p>
         <p class="author">${book.author}</p>
+        <button class="book-delete-btn" data-book-index="${index}">x</button>
       </div>
     `;
+    
     document.querySelector('body').insertAdjacentHTML('beforeend', bookElement);
+    
+    let deleteBtn = document.querySelector(`.book-delete-btn[data-book-index="${index}"`)
+
+    deleteBtn.addEventListener('click', (event) => {
+      let clickedIndex = event.target.dataset.bookIndex;
+      removeBook(clickedIndex);
+      deleteBook(clickedIndex);
+    });
   };
 
   function displayBooks() {
-    booksArray.forEach((book) => {
-      displayBook(book);
+    booksArray.forEach((book, index) => {
+      displayBook(book, index);
     })
   };
   
@@ -65,8 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
   addBookForm.addEventListener('submit', (event) => {
     event.preventDefault();
     let newBook = createBook();
-    saveBook(newBook);
-    displayBook(newBook);
+    let newBookIndex = saveBook(newBook);
+    displayBook(newBook, newBookIndex);
   });
 
 

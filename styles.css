@@ -118,3 +118,11 @@ input[type='submit'] {
   right: 10px;
 }
 
+.book-delete-btn {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  cursor: pointer;
+  font-size: xx-small;
+}
+
