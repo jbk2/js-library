@@ -126,3 +126,12 @@ input[type='submit'] {
   font-size: xx-small;
 }
 
+#checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  position: absolute;
+  top: 130px;
+  right: 5px;
+  font-size: small;
+}

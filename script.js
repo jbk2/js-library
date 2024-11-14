@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       addBookPages,
       addBookRead
     ] = document.querySelectorAll('#add-book-title, #add-book-author, #add-book-pages, #add-book-read');
-    let read = addBookRead.value === 'on' ? true : false
+    let read = addBookRead.checked
     let newBook = new Book(addBookTitle.value, addBookAuthor.value, addBookPages.value, read);
 
  [addBookTitle.value, addBookAuthor.value, addBookPages.value, addBookRead.checked] = ['', '', '', false];   
@@ -57,22 +57,35 @@ document.addEventListener('DOMContentLoaded', () => {
   function displayBook(book, index) {
     let colors = getRandomHSLColors();
     let backgroundImage = `linear-gradient(to right, ${colors.dark} 10px, ${colors.dark} 28px, transparent 29px)`;
+    // let read = book.read === true ? 'on' : 'off';
     let bookElement = `
       <div class="book" style="background: ${colors.main}; background-image: ${backgroundImage}">
         <p class="title">${book.title}</p>
         <p class="author">${book.author}</p>
         <button class="book-delete-btn" data-book-index="${index}">x</button>
+        <div id="checkbox">
+          <label for="book-read">Read?</label>
+          <input type="checkbox" data-book-index="${index}" ${book.read ? 'checked' : ''}>
+        </div>
       </div>
     `;
     
     document.querySelector('body').insertAdjacentHTML('beforeend', bookElement);
     
     let deleteBtn = document.querySelector(`.book-delete-btn[data-book-index="${index}"`)
+    let readCheckbox = document.querySelector(`input[type="checkbox"][data-book-index="${index}"]`)
 
     deleteBtn.addEventListener('click', (event) => {
       let clickedIndex = event.target.dataset.bookIndex;
       removeBook(clickedIndex);
       deleteBook(clickedIndex);
+    });
+
+    readCheckbox.addEventListener('change', (event) => {
+      let clickedIndex = event.target.dataset.bookIndex;
+      let checked = event.target.checked;
+      let book = booksArray[clickedIndex];
+      book.read = checked;
     });
   };
 
