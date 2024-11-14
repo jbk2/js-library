@@ -82,10 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     readCheckbox.addEventListener('change', (event) => {
-      let clickedIndex = event.target.dataset.bookIndex;
-      let checked = event.target.checked;
-      let book = booksArray[clickedIndex];
-      book.read = checked;
+      booksArray[event.target.dataset.bookIndex].read = event.target.checked;
     });
   };
 
