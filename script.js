@@ -1,14 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-  let booksArray = [];
+  const booksArray = [];
   const addBookForm = document.getElementById('add-book-form');
-  const booksTable = document.getElementById('books');
 
-  function Book(title, author, noOfPages, read = false) {
-    this.title = title;
-    this.author = author;
-    this.noOfPages = noOfPages;
-    this.read = read;
+
+  class Book { 
+    constructor(title, author, noOfPages, read = false) {
+      this.title = title;
+      this.author = author;
+      this.noOfPages = noOfPages;
+      this.read = read;
+    }
+
+    set title(value) {
+      if (value.length < 4 ) { throw new Error("Title must be > 4 chars") }
+      this._title = value;
+    }
+    
+    get title() {
+      return this._title;
+    }
+    
+    set author(value) {
+      if (value.length < 2 ) { throw new Error("Author must be > 2 chars") }
+      this._author = value;
+    }
+    
+    get author() {
+      return this._author;
+    }
+    
+    set noOfPages(value) {
+      if (value.length < 1 ) { throw new Error("No of Pages must be a positive integer") }
+      this._noOfPages = value;
+    }
+    
+    get noOfPages() {
+      return this._noOfPages;
+    }
+    
+    set read(value) {
+      if (typeof value != 'boolean' ) { throw new Error("Must be true or false") }
+      this._read = value;
+    }
+
+    get read() {
+      return this._read;
+    }
+    
   }
 
   let seedBook1 = new Book('To Kill a Mockingbird', 'Harper Lee', 300, false);
@@ -20,14 +58,25 @@ document.addEventListener('DOMContentLoaded', () => {
       addBookTitle,
       addBookAuthor,
       addBookPages,
-      addBookRead
-    ] = document.querySelectorAll('#add-book-title, #add-book-author, #add-book-pages, #add-book-read');
-    let read = addBookRead.checked
-    let newBook = new Book(addBookTitle.value, addBookAuthor.value, addBookPages.value, read);
+      addBookRead,
+      errorMssg
+    ] = document.querySelectorAll('#add-book-title, #add-book-author, #add-book-pages, #add-book-read, #error-mssg');
+    
+    try {
+      let newBook = new Book(addBookTitle.value, addBookAuthor.value, parseInt(addBookPages.value), addBookRead.checked);
+      [addBookTitle.value, addBookAuthor.value, addBookPages.value, addBookRead.checked, errorMssg.textContent] = ['', '', 200, false, ''];
+      console.log(newBook);
+      return newBook;
+    } catch (error) {
+      console.error(error);
+      displayErrorMessage(error.message);
+      return null;
+    }
+  }
 
- [addBookTitle.value, addBookAuthor.value, addBookPages.value, addBookRead.checked] = ['', '', '', false];   
-    console.log(newBook);
-    return newBook;
+  function displayErrorMessage(message) {
+    let errorElement = document.getElementById('error-mssg');
+    errorElement.textContent = message;
   }
   
   function saveBook(book) {
@@ -92,15 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   };
   
-  displayBooks();
-
   addBookForm.addEventListener('submit', (event) => {
     event.preventDefault();
     let newBook = createBook();
-    let newBookIndex = saveBook(newBook);
-    displayBook(newBook, newBookIndex);
+    if (newBook) {
+      let newBookIndex = saveBook(newBook);
+      displayBook(newBook, newBookIndex);
+    }
   });
-
-
+  
+  displayBooks();
 
 });
